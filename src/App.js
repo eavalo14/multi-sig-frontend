@@ -32,7 +32,7 @@ export default function App() {
 
     // process mint request after user builds nft 
     function processMintRequest() {
-        axios.post("http://localhost:5001/",{"state": "startMint"})
+        axios.post("https://asdr898as7d8c989sd7fhn.herokuapp.com/",{"state": "startMint"})
           .then(() => console.log("hello world sent"))
           .catch(err => {
             console.log(err)
@@ -87,7 +87,7 @@ export default function App() {
                 const witnessBuyer = await nami.signTx(transaction, true)
                 // console.log(witnessBuyer)
 
-                axios.post("http://localhost:5001/",
+                axios.post("https://asdr898as7d8c989sd7fhn.herokuapp.com/",
                     {"witnessBuyer": witnessBuyer,
                      "transaction": transaction})
                     .then(() => console.log("hello world sent"))
