@@ -40,7 +40,7 @@ export default function App() {
             console.log(err)
         })
     
-        axios.get("/",  { crossdomain: true }).then(response => {
+        axios.get("http://localhost:5001/",  { crossdomain: true }).then(response => {
             // retrieve hashed metadata from backend server
             var hashedMeta = response.data.hashedMeta
     
@@ -62,12 +62,9 @@ export default function App() {
                 let dummyMetadata =  {"721":
                     {"36aa169af7dc9bb5a566987191221f2d7a92aab211350f7119fc1541": // policyId
                     {"Test1": // NFTName
-                    {
-                        "name":"Test1",
-                        "description":"This is a test NFT",
-                        "hello": "you are awesome",
-                        "image":"ipfs://QmP6Cj35VRv1air5CCkjVkXXpYAMbWRu24UxihiRCbYHoe"
-                    }}
+                    {"name":"sfgsdfgdfsg",
+                    "description":"gsdffsgdfsgdfsgdfsg",
+                    "image":"isdgdfsgafsgdfdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfgdfgdfsgdfsgdfsgdfsg"}}
                     }
                 }
               
