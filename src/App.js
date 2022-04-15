@@ -6,7 +6,114 @@ import NamiWalletApi, { Cardano } from './nami-js';
 import blockfrostApiKey from '../config.js'; 
 let nami;
 
+export default function App() {
+    // connect nami wallet
+    useEffect(() => {
 
+        async function t() {
+
+            const S = await Cardano();
+            nami = new NamiWalletApi(
+                S,
+                window.cardano,
+               blockfrostApiKey
+            )
+
+            if (await nami.isInstalled()) {
+                await nami.isEnabled().then(result => { console.log("nami connected") })
+                console.log(await nami.getAddress())
+            }
+        }
+
+        t()
+    }, [])
+
+    // process mint request after user builds nft 
+    function processMintRequest() {
+        axios.post("http://localhost:5001/",{"state": "startMint"})
+          .then(() => console.log("hello world sent"))
+          .catch(err => {
+            console.log(err)
+        })
+    
+        axios.get("http://localhost:5001/",  { crossdomain: true }).then(response => {
+            // retrieve hashed metadata from backend server
+            var hashedMeta = response.data.hashedMeta
+    
+            async function setupTransaction() {
+                let paymentAddress = await nami.getAddress() // nami wallet address
+
+                // console.log("DEGUGGING******************")
+                // console.log(paymentAddress)
+                
+
+                let recipients = [
+                    {address: "addr_test1qrnns8ctrctt5ga9g990nc4d7pt0k25gaj0mnlda320ejmprlzyh4mr2psnrgh6ht6kaw860j5rhv44x4mt4csl987zslcr4p6", amount: "10"}, // Seller Wallet, NFT price 10ADA
+                    {address: paymentAddress,  amount: "0",
+                     mintedAssets:[
+                         {
+                            "assetName":"Test1",
+                            "quantity":"1",
+                            "policyId":"58a8abbedbb77785b8163e14d2d32783f4f66b77dea08c6ef30b279a",
+                            "policyScript":"8201828200581cd53436e6be4ee8d9c4dce7866a166cf26160f047dd4540437f17074282051a041bd09f"}]} // NFTs to be minted
+                    ] // list of recipients
+
+                let dummyMetadata =  {"721":
+                    {"36aa169af7dc9bb5a566987191221f2d7a92aab211350f7119fc1541": // policyId
+                    {"Test1": // NFTName
+                    {"name":"sfgsdfgdfsg",
+                    "description":"gsdffsgdfsgdfsgdfsg",
+                    "image":"isdgdfsgafsgdfdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfgdfgdfsgdfsgdfsgdfsg"}}
+                    }
+                }
+              
+
+                let transaction = await nami.transaction( 
+                    {
+                        PaymentAddress : paymentAddress, 
+                        recipients : recipients,
+                        metadata : dummyMetadata, 
+                        metadataHash : hashedMeta, 
+                        addMetadata : false, 
+                        utxosRaw : (await nami.getUtxosHex()),
+                        multiSig : true
+                    }
+                ) 
+
+
+                // console.log("trying to sign transaction")
+                const witnessBuyer = await nami.signTx(transaction, true)
+                // console.log(witnessBuyer)
+
+                axios.post("http://localhost:5001/",
+                    {"witnessBuyer": witnessBuyer,
+                     "transaction": transaction})
+                    .then(() => console.log("hello world sent"))
+                    .catch(err => {
+                        console.log(err)
+                    })
+
+
+            }
+           
+
+            setupTransaction()
+        });
+    
+        
+    }   
+    
+    return (
+        <div>
+        <button onClick={processMintRequest}> 
+            Mint NFT
+        </button>
+        </div>
+    )
+}
+
+
+/*
 export default function App() {
     const [connected, setConnected] = useState()
     const [address, setAddress] = useState()
@@ -372,4 +479,4 @@ export default function App() {
 
 
 
-    
+    */
