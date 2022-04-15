@@ -2,10 +2,13 @@ import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import DateTimePicker from 'react-datetime-picker';
 import './App.css';
+// import Mint from "./Mint";
 
 import NamiWalletApi, { Cardano } from './nami-js';
 import blockfrostApiKey from '../config.js'; 
 let nami;
+
+
 
 export default function App() {
     // connect nami wallet
@@ -22,8 +25,7 @@ export default function App() {
 
             if (await nami.isInstalled()) {
                 await nami.isEnabled().then(result => { console.log("nami connected") })
-                console.log(await nami.getAddress())
-                console.log('fuck bitches get money')
+                // console.log(await nami.getAddress())
             }
         }
 
@@ -32,23 +34,19 @@ export default function App() {
 
     // process mint request after user builds nft 
     function processMintRequest() {
-        // axios.post("https://asdr898as7d8c989sd7fhn.herokuapp.com/",{"state": "startMint"})
-          
-        axios.post("http://localhost:5001/",{"state": "startMint"})
+        axios.post("https://asdr898as7d8c989sd7fhn.herokuapp.com/",{"state": "startMint"})
           .then(() => console.log("hello world sent"))
           .catch(err => {
             console.log(err)
         })
     
+        // axios.get("http://localhost:5001/",  { crossdomain: true }).then(response => {
         axios.get("/",  { crossdomain: true }).then(response => {
             // retrieve hashed metadata from backend server
             var hashedMeta = response.data.hashedMeta
     
             async function setupTransaction() {
                 let paymentAddress = await nami.getAddress() // nami wallet address
-
-                // console.log("DEGUGGING******************")
-                // console.log(paymentAddress)
                 
 
                 let recipients = [
@@ -89,8 +87,7 @@ export default function App() {
                 const witnessBuyer = await nami.signTx(transaction, true)
                 // console.log(witnessBuyer)
 
-                // axios.post("https://asdr898as7d8c989sd7fhn.herokuapp.com/",
-                axios.post("http://localhost:5001/",
+                axios.post("https://asdr898as7d8c989sd7fhn.herokuapp.com/",
                     {"witnessBuyer": witnessBuyer,
                      "transaction": transaction})
                     .then(() => console.log("hello world sent"))
@@ -106,19 +103,36 @@ export default function App() {
         });
     
         
-    }   
+      }
     
-    return (
-        <div>
-        <button onClick={processMintRequest}> 
-            Mint NFT
-        </button>
-        </div>
-    )
-}
+      return (
+          <div>
+            <button onClick={processMintRequest}> 
+              Mint NFT
+            </button>
+          </div>
+        )
+      }
+
+
+    // return (
+    //   <div className="App">
+    //     <header className="App-header">
+    //       <Mint />
+    //     </header>
+    //   </div>
+    // );
+//   }
+
+
+
+// export default function App() {
+//     return (<h1>SETUPPPPP GGGGGG</h1>)
+// }
 
 
 /*
+
 export default function App() {
     const [connected, setConnected] = useState()
     const [address, setAddress] = useState()
@@ -481,7 +495,4 @@ export default function App() {
     </>
     )
 }
-
-
-
-    */
+*/
