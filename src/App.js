@@ -38,7 +38,7 @@ export default function App() {
             console.log(err)
         })
     
-        axios.get("http://localhost:5001/",  { crossdomain: true }).then(response => {
+        axios.get("/",  { crossdomain: true }).then(response => {
             // retrieve hashed metadata from backend server
             var hashedMeta = response.data.hashedMeta
     
