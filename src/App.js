@@ -9,9 +9,10 @@ import blockfrostApiKey from '../config.js';
 let nami;
 
 var backendServer = "https://asdr898as7d8c989sd7fhn.herokuapp.com/"
-
+// var backendServer = "http://localhost:5001/"
 
 export default function App() {
+    const [connected, setConnected] = useState()
     // connect nami wallet
     useEffect(() => {
 
@@ -25,8 +26,12 @@ export default function App() {
             )
 
             if (await nami.isInstalled()) {
-                await nami.isEnabled().then(result => { console.log("nami connected") })
-                console.log(await nami.getAddress())
+                await nami.isEnabled().then(result => { 
+                    console.log("nami connected");
+                    setConnected(result) 
+                })
+                
+                // console.log(await nami.getAddress())
             }
         }
 
@@ -105,12 +110,26 @@ export default function App() {
         
       }
     
-      return (
-          <div>
+    const connect = async () => {
+        // Connects nami wallet to current website 
+        await nami.enable()
+            .then(result => setConnected(result))
+            .catch(e => console.log(e))
+    }
+
+    return (<>
+        <div className="row" >
+            <h1> 1. Connect your website to Nami Wallet</h1>
+        </div>
+        <div className="row" >
+            <button className={`button ${connected ? "success" : ""}`} onClick={connect} > {connected ? "Connected" : "Connect to Nami"} </button>
+        </div>
+        <div>
             <button onClick={processMintRequest}> 
-              Mint NFT
+                Mint NFT
             </button>
-          </div>
+        </div>
+        </>
         )
       }
 
