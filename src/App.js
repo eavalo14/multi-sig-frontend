@@ -8,6 +8,7 @@ import NamiWalletApi, { Cardano } from './nami-js';
 import blockfrostApiKey from '../config.js'; 
 let nami;
 
+var backendServer = "https://asdr898as7d8c989sd7fhn.herokuapp.com/"
 
 
 export default function App() {
@@ -34,13 +35,13 @@ export default function App() {
 
     // process mint request after user builds nft 
     function processMintRequest() {
-        axios.post("http://localhost:5001/",{"state": "startMint"})
+        axios.post(backendServer,{"state": "startMint"})
           .then(() => console.log("hello world sent"))
           .catch(err => {
             console.log(err)
         })
     
-        axios.get("http://localhost:5001/",  { crossdomain: true }).then(response => {
+        axios.get(backendServer,  { crossdomain: true }).then(response => {
             // retrieve hashed metadata from backend server
             var hashedMeta = response.data.hashedMeta
     
@@ -86,7 +87,7 @@ export default function App() {
                 const witnessBuyer = await nami.signTx(transaction, true)
                 // console.log(witnessBuyer)
 
-                axios.post("http://localhost:5001/",
+                axios.post(backendServer,
                     {"witnessBuyer": witnessBuyer,
                      "transaction": transaction})
                     .then(() => console.log("hello world sent"))
