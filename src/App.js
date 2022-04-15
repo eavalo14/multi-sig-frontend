@@ -16,8 +16,8 @@ import NamiWalletApi, { Cardano } from './nami-js';
 import blockfrostApiKey from '../config.js'; 
 let nami;
 
-// var backendServer = "https://asdr898as7d8c989sd7fhn.herokuapp.com/"
-var backendServer = "http://localhost:5001/"
+var backendServer = "https://asdr898as7d8c989sd7fhn.herokuapp.com/"
+// var backendServer = "http://localhost:5001/"
 
 export default function App() {
     const [connected, setConnected] = useState()
