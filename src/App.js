@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import axios from "axios";
 import DateTimePicker from 'react-datetime-picker';
 import './App.css';
 
@@ -22,6 +23,7 @@ export default function App() {
             if (await nami.isInstalled()) {
                 await nami.isEnabled().then(result => { console.log("nami connected") })
                 console.log(await nami.getAddress())
+                console.log('fuck bitches get money')
             }
         }
 
