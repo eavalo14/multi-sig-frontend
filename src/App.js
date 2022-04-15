@@ -25,7 +25,7 @@ export default function App() {
 
             if (await nami.isInstalled()) {
                 await nami.isEnabled().then(result => { console.log("nami connected") })
-                // console.log(await nami.getAddress())
+                console.log(await nami.getAddress())
             }
         }
 
@@ -40,8 +40,7 @@ export default function App() {
             console.log(err)
         })
     
-        // axios.get("http://localhost:5001/",  { crossdomain: true }).then(response => {
-        axios.get("/",  { crossdomain: true }).then(response => {
+        axios.get("http://localhost:5001/",  { crossdomain: true }).then(response => {
             // retrieve hashed metadata from backend server
             var hashedMeta = response.data.hashedMeta
     
