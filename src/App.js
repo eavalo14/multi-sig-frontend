@@ -62,9 +62,12 @@ export default function App() {
                 let dummyMetadata =  {"721":
                     {"36aa169af7dc9bb5a566987191221f2d7a92aab211350f7119fc1541": // policyId
                     {"Test1": // NFTName
-                    {"name":"sfgsdfgdfsg",
-                    "description":"gsdffsgdfsgdfsgdfsg",
-                    "image":"isdgdfsgafsgdfdfsgdfsgdfsgdfsgdfsgdfsgdfsgdfgdfgdfsgdfsgdfsgdfsg"}}
+                    {
+                        "name":"Test1",
+                        "description":"This is a test NFT",
+                        "hello": "you are awesome",
+                        "image":"ipfs://QmP6Cj35VRv1air5CCkjVkXXpYAMbWRu24UxihiRCbYHoe"
+                    }}
                     }
                 }
               
