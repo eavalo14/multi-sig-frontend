@@ -34,7 +34,7 @@ export default function App() {
     function processMintRequest() {
         // axios.post("https://asdr898as7d8c989sd7fhn.herokuapp.com/",{"state": "startMint"})
           
-        axios.post("http://localhost:8080/",{"state": "startMint"})
+        axios.post("http://localhost:5001/",{"state": "startMint"})
           .then(() => console.log("hello world sent"))
           .catch(err => {
             console.log(err)
@@ -90,7 +90,7 @@ export default function App() {
                 // console.log(witnessBuyer)
 
                 // axios.post("https://asdr898as7d8c989sd7fhn.herokuapp.com/",
-                axios.post("http://localhost:8080/",
+                axios.post("http://localhost:5001/",
                     {"witnessBuyer": witnessBuyer,
                      "transaction": transaction})
                     .then(() => console.log("hello world sent"))
