@@ -2,14 +2,22 @@ import React, { useEffect, useState } from 'react';
 import axios from "axios";
 import DateTimePicker from 'react-datetime-picker';
 import './App.css';
+import "../public/images/header.jpeg";
+import background from "../public/images/header.jpeg";
+
+import { View, Text, Image, StyleSheet } from 'react-native';
+
+import {Helmet} from 'react-helmet';
+import '../public/css/header.css'
+
 // import Mint from "./Mint";
 
 import NamiWalletApi, { Cardano } from './nami-js';
 import blockfrostApiKey from '../config.js'; 
 let nami;
 
-var backendServer = "https://asdr898as7d8c989sd7fhn.herokuapp.com/"
-// var backendServer = "http://localhost:5001/"
+// var backendServer = "https://asdr898as7d8c989sd7fhn.herokuapp.com/"
+var backendServer = "http://localhost:5001/"
 
 export default function App() {
     const [connected, setConnected] = useState()
@@ -117,8 +125,57 @@ export default function App() {
             .catch(e => console.log(e))
     }
 
-    return (<>
-        <div className="row" >
+    return (
+    
+        <>
+        {/* Global top level color */}
+        
+        <div className="application">
+            <Helmet>
+                <style>{'body { background-color: #050549;}'}</style>
+            </Helmet>
+
+            {/* site header and nami connection */}
+            <div className = "head-text">
+                <div className = "head-image">  
+                    <img src={require("../public/images/header.jpeg").default} width="100%" height="100%"></img>
+                </div>
+                <div class='text-on-image'>
+                    <button className={`button ${connected ? "success" : ""}`} onClick={connect} > {connected ? "Nami Connected" : "Connect to Nami"} </button>
+                </div>
+
+            </div>
+
+            {/* Warnings Text */}
+            <div className="warnings">
+                {/* <h1 background-color = "white">This is a heading</h1> */}
+                <h4><b>Warnings</b></h4>
+                <h4><i>If you do not have Nami Wallet installed you can download the chrome extension <a href="https://namiwallet.io/" target="_blank"> here</a></i></h4>
+                <h4><i>If issues with your Nami wallet persists, we suggest creating a new Nami wallet.</i></h4>
+                <h4><i>Allow one transaction to clear prior to submitting another transaction.</i></h4>
+                <h4><i>Please be patient with transaction times as the blockchain may be congested. </i></h4>
+            </div>
+
+            {/*Minting Process*/}
+            <div className="warnings">
+                <button className="buttonMint" onClick={processMintRequest}> 
+                    Mint NFT
+                </button>
+            </div>
+
+            {/* <div position="relative" width="100%">
+                <img src={require("../public/images/header.jpeg").default} width="100%" height="100%"></img>
+                <b position="absolute" top="200px" left= "0" width="100%" >yoo</b>
+            </div> */}
+            
+        </div>
+            {/* <div>
+                <img src={require("../public/images/header.jpeg").default} width="100%" height="100%">
+
+                </img>
+            </div>     */}
+        
+        {/* <div className="row" >
             <h1> 1. Connect your website to Nami Wallet</h1>
         </div>
         <div className="row" >
@@ -128,7 +185,7 @@ export default function App() {
             <button onClick={processMintRequest}> 
                 Mint NFT
             </button>
-        </div>
+        </div> */}
         </>
         )
       }

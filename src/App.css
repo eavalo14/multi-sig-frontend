@@ -3,14 +3,31 @@
 }
 .button {
 
-    background-color: #ab3230;
+    background-color: #FF9F33;
     border: none;
-    font-size: 28px;
+    font-size: 20px;
     color: #FFFFFF;
     padding: 20px;
-    min-width: 400px;
+    min-width: 250px;
     min-height: 100px; 
-    height: 150px;
+    height: 100px;
+    text-align: center;
+    transition-duration: 0.4s;
+    text-decoration: none;
+    cursor: pointer;
+    border-radius: 25px;
+  }
+
+  .buttonMint {
+
+    background-color: #FF9F33;
+    border: none;
+    font-size: 20px;
+    color: #FFFFFF;
+    padding: 20px;
+    min-width: 250px;
+    min-height: 100px; 
+    height: 100px;
     text-align: center;
     transition-duration: 0.4s;
     text-decoration: none;
@@ -18,7 +35,7 @@
     border-radius: 25px;
   }
   .success { 
-    background-color: #366a10;
+    background-color: #3E940C;
   }
   .container {
 
@@ -57,6 +74,12 @@
     border-radius: 30px;
     color: #FFFFFF;
   
+  }
+  .warnings {
+    text-align: center;
+    font-size: 28px;
+    /* width: 50%; */
+    color:white;
   }
 
 
